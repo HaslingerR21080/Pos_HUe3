@@ -10,15 +10,12 @@ public class WeaponComparator implements Comparator<Weapon> {
     }
 
     // damage absteigend
-    public static Comparator<Weapon> sortByDamageDesc() {
-        return (w1, w2) -> Integer.compare(w2.getDamage(), w1.getDamage());
+    public static void sortByDamageDescending(List<Weapon> weapons) {
+        weapons.sort(Comparator.comparingInt(Weapon::getDamage).reversed());
     }
 
-
-    public static Comparator<Weapon> sortByCombatTypeDamageTypeName() {
-        return Comparator
-                .comparing(Weapon::getCombatType)
-                .thenComparing(Weapon::getDamageType)
-                .thenComparing(Weapon::getName);
+    public List<Weapon> sortByCombatTypeDamageTypeName(List<Weapon> weaponList) {
+        weaponList.sort((Comparator.comparing((Weapon o) -> o.getCombatType().toString()).thenComparing(o -> o.getDamageType().toString()).thenComparing(Weapon::getName)));
+        return weaponList;
     }
 }
